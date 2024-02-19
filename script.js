@@ -64,6 +64,8 @@ async function logIssueDetails() {
 
     console.log("published to at least one relay!");
 
+    pool.close();
+
     // Add more fields as needed
   } catch (error) {
     core.setFailed(`Failed to fetch issue details: ${error.message}`);
