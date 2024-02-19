@@ -3,9 +3,9 @@ const github = require("@actions/github");
 
 async function logIssueDetails() {
   try {
-    const token = core.getInput("GH_TOKEN"); // Assuming GH_TOKEN is set as a secret
-    const repoFullName = core.getInput("GH_REPO").split("/"); // e.g., "owner/repo"
-    const issueNumber = core.getInput("NUMBER"); // The number of the issue
+    const token = process.env.GH_TOKEN; // Accessing environment variable
+    const repoFullName = process.env.GH_REPO.split("/"); // "owner/repo"
+    const issueNumber = process.env.NUMBER; // The number of the issue
 
     console.log(`Fetching issue details for issue #${issueNumber}...`);
     console.log(`Repository: ${repoFullName.join("/")}`);
