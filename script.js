@@ -1,8 +1,13 @@
 import github from "@actions/github";
 import core from "@actions/core";
-import { generateSecretKey, getPublicKey, finalizeEvent } from "nostr-tools/pure";
+import {
+  generateSecretKey,
+  getPublicKey,
+  finalizeEvent,
+  verifyEvent,
+} from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
-import * as nip19 from 'nostr-tools/nip19'
+import * as nip19 from "nostr-tools/nip19";
 
 async function logIssueDetails() {
   try {
@@ -30,8 +35,6 @@ async function logIssueDetails() {
     console.log(`Secret Key: ${sk}`);
     console.log(`Public Key: ${pk}`);
 
-    const pool = new SimplePool();
-
     let eventTemplate = {
       kind: 1,
       created_at: Math.floor(Date.now() / 1000),
@@ -41,17 +44,24 @@ async function logIssueDetails() {
 
     let relays = ["wss://nos.lol"];
 
-    let npub = nip19.npubEncode(pk)
+    let npub = nip19.npubEncode(pk);
 
     console.log("npub: ", npub);
 
     // this assigns the pubkey, calculates the event id and signs the event in a single step
     const signedEvent = finalizeEvent(eventTemplate, sk);
 
+    const verified = verifyEvent(signedEvent);
+    console.log("verified: ", verified);
+
     console.log("publishing to relays...");
     console.log("signed event: ", signedEvent);
 
-    await Promise.any(pool.publish(relays, signedEvent));
+    const pool = new SimplePool();
+    // await Promise.any(pool.publish(relays, signedEvent));
+    const publishedEvent = await Promise.any(pool.publish(relays, signedEvent));
+    console.log("published event: ", publishedEvent);
+
     console.log("published to at least one relay!");
 
     // Add more fields as needed
