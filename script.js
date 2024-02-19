@@ -1,5 +1,6 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
+import github from "@actions/github";
+import core from "@actions/core";
+import { generateSecretKey, getPublicKey } from "nostr-tools/pure";
 
 async function logIssueDetails() {
   try {
@@ -20,6 +21,10 @@ async function logIssueDetails() {
     console.log(`Issue Title: ${issue.title}`);
     console.log(`Issue State: ${issue.state}`);
     console.log(`Issue Body: ${issue.body}`);
+
+    let sk = generateSecretKey(); // `sk` is a Uint8Array
+    let pk = getPublicKey(sk); // `pk` is a hex string
+
     // Add more fields as needed
   } catch (error) {
     core.setFailed(`Failed to fetch issue details: ${error.message}`);
