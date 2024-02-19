@@ -2,6 +2,7 @@ import github from "@actions/github";
 import core from "@actions/core";
 import { generateSecretKey, getPublicKey, finalizeEvent } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
+import * as nip19 from 'nostr-tools/nip19'
 
 async function logIssueDetails() {
   try {
@@ -39,6 +40,10 @@ async function logIssueDetails() {
     };
 
     let relays = ["wss://relay.damus.io"];
+
+    let npub = nip19.npubEncode(pk)
+
+    console.log("npub: ", npub);
 
     // this assigns the pubkey, calculates the event id and signs the event in a single step
     const signedEvent = finalizeEvent(eventTemplate, sk);
