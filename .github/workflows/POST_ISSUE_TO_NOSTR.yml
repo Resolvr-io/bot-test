@@ -22,7 +22,7 @@ jobs:
         run: npm install
       
       - name: Run JavaScript function
-        run: node script.js
+        run: node --experimental-websocket script.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
