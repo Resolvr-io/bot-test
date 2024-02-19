@@ -42,7 +42,7 @@ async function logIssueDetails() {
       content: `Issue Title: ${issue.title}\nIssue State: ${issue.state}\nIssue Body: ${issue.body}`,
     };
 
-    let relays = ["wss://nos.lol"];
+    let relays = ["wss://nos.lol", "wss://relay.damus.io"];
 
     let npub = nip19.npubEncode(pk);
 
