@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
           
       - name: Install dependencies
-        run: npm install @actions/github @actions/core
+        run: npm install
       
       - name: Run JavaScript function
         run: node script.js

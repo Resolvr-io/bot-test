@@ -7,9 +7,6 @@ async function logIssueDetails() {
     const repoFullName = process.env.GH_REPO.split("/"); // "owner/repo"
     const issueNumber = process.env.NUMBER; // The number of the issue
 
-    console.log(`Fetching issue details for issue #${issueNumber}...`);
-    console.log(`Repository: ${repoFullName.join("/")}`);
-
     const octokit = github.getOctokit(token);
 
     // Fetch issue details
