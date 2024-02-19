@@ -8,6 +8,8 @@ import {
 } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 import * as nip19 from "nostr-tools/nip19";
+import { useWebSocketImplementation } from 'nostr-tools/relay'
+useWebSocketImplementation(require('ws'))
 
 async function logIssueDetails() {
   try {
