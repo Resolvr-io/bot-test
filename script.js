@@ -8,10 +8,10 @@ import {
 } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 import * as nip19 from "nostr-tools/nip19";
-import { useWebSocketImplementation } from 'nostr-tools/relay'
-useWebSocketImplementation(require('ws'))
+import { useWebSocketImplementation } from "nostr-tools/relay";
 
 async function logIssueDetails() {
+  useWebSocketImplementation(require("ws"));
   try {
     const token = process.env.GH_TOKEN; // Accessing environment variable
     const repoFullName = process.env.GH_REPO.split("/"); // "owner/repo"
