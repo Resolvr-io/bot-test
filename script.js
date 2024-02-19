@@ -43,6 +43,9 @@ async function logIssueDetails() {
     // this assigns the pubkey, calculates the event id and signs the event in a single step
     const signedEvent = finalizeEvent(eventTemplate, sk);
 
+    console.log("publishing to relays...");
+    console.log("signed event: ", signedEvent);
+
     await Promise.any(pool.publish(relays, signedEvent));
     console.log("published to at least one relay!");
 
