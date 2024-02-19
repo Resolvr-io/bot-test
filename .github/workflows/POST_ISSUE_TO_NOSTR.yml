@@ -10,9 +10,22 @@ jobs:
     permissions:
       issues: write
     steps:
-      - run: gh issue edit "$NUMBER" --add-label "$LABELS"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm install @actions/github @actions/core
+      
+      - name: Run JavaScript function
+        run: node script.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: bug
+
