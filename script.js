@@ -1,6 +1,7 @@
 import github from "@actions/github";
 import core from "@actions/core";
 import { generateSecretKey, getPublicKey } from "nostr-tools/pure";
+import { SimplePool } from "nostr-tools/pool";
 
 async function logIssueDetails() {
   try {
@@ -24,6 +25,26 @@ async function logIssueDetails() {
 
     let sk = generateSecretKey(); // `sk` is a Uint8Array
     let pk = getPublicKey(sk); // `pk` is a hex string
+
+    console.log(`Secret Key: ${sk}`);
+    console.log(`Public Key: ${pk}`);
+
+    const pool = new SimplePool();
+
+    let eventTemplate = {
+      kind: 1,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: [],
+      content: `Issue Title: ${issue.title}\nIssue State: ${issue.state}\nIssue Body: ${issue.body}`,
+    };
+
+    let relays = ["wss://relay.damus.io"];
+
+    // this assigns the pubkey, calculates the event id and signs the event in a single step
+    const signedEvent = finalizeEvent(eventTemplate, sk);
+
+    await Promise.any(pool.publish(relays, signedEvent));
+    console.log("published to at least one relay!");
 
     // Add more fields as needed
   } catch (error) {
