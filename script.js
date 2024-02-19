@@ -1,6 +1,6 @@
 import github from "@actions/github";
 import core from "@actions/core";
-import { generateSecretKey, getPublicKey } from "nostr-tools/pure";
+import { generateSecretKey, getPublicKey, finalizeEvent } from "nostr-tools/pure";
 import { SimplePool } from "nostr-tools/pool";
 
 async function logIssueDetails() {
