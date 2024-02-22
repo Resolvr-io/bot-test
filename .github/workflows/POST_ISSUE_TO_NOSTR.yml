@@ -26,4 +26,4 @@ jobs:
           nsec: ${{ secrets.NSEC }}
           kind: "1"
           tags: "[]"
-          relays: '["wss://nos.lol", "wss://relay.damus.io",]'
+          relays: '["wss://nos.lol", "wss://relay.damus.io"]'
