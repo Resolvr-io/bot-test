@@ -1,4 +1,4 @@
-name: Label issues
+name: Nostr issue action
 on:
   issues:
     types:
@@ -12,20 +12,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21'
-          
-      - name: Install dependencies
-        run: npm install
-      
-      - name: Run JavaScript function
-        run: node --experimental-websocket script.js
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.issue.number }}
-          LABELS: bug
-
+          node-version: "21"
+      - name: Publish Issue to Nostr
+        uses: ChristianChiarulli/nostr-issues-test@v0.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          issue_number: ${{ github.event.issue.number }}
+          nsec: ${{ secrets.NSEC }}
+          kind: "1"
+          tags: "[]"
+          relays: '["wss://nos.lol", "wss://relay.damus.io",]'

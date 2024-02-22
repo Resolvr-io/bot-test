@@ -58,7 +58,7 @@ async function logIssueDetails() {
     console.log("signed event: ", signedEvent);
 
     const pool = new SimplePool();
-    // await Promise.any(pool.publish(relays, signedEvent));
+    // await Prsosmise.any(pool.publish(relays, signedEvent));
     const publishedEvent = await Promise.any(pool.publish(relays, signedEvent));
     console.log("published event: ", publishedEvent);
 
