@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "21"
       - name: Publish Issue to Nostr
-        uses: ChristianChiarulli/nostr-issues-test@v0.0.4
+        uses: ChristianChiarulli/nostr-issues-test@v0.0.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
