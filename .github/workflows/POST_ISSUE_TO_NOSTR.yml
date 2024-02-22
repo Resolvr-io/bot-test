@@ -19,7 +19,7 @@ jobs:
           node-version: "21"
       - name: Publish Issue to Nostr
         uses: ChristianChiarulli/nostr-issues-test@v0.0.5
-        with:
+        env:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           issue_number: ${{ github.event.issue.number }}
